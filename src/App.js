@@ -2,7 +2,7 @@ import { Logo, Form, PakingList, Stats } from "./components";
 
 function App() {
   return (
-    <div>
+    <div className="app">
       <Logo />
       <Form />
       <PakingList />
