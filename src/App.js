@@ -4,6 +4,10 @@ import { Logo, Form, PakingList, Stats } from "./components";
 function App() {
   const [items, setItems] = useState([]);
 
+  const quantityItems = items.length;
+  const quantityPacked = items.filter((item) => item.packed).length;
+  const percentage = Math.round((quantityPacked / quantityItems) * 100);
+
   const handleAddItems = (item) => {
     setItems((items) => [...items, item]);
   };
@@ -30,7 +34,11 @@ function App() {
         onDeletedItem={handleDeleteItem}
         handleToggleItem={handleToggleItem}
       />
-      <Stats />
+      <Stats
+        quantityItems={quantityItems}
+        quantityPacked={quantityPacked}
+        percentage={percentage}
+      />
     </div>
   );
 }
