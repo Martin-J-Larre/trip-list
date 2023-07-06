@@ -7,7 +7,6 @@ const idGenerator = () => {
 };
 
 export const Form = ({ onAddItems }) => {
-  console.log(onAddItems);
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
 

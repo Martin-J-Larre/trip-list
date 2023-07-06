@@ -1,13 +1,24 @@
 import React from "react";
 
-export const Item = ({ quantity, description, packed }) => {
+export const Item = ({
+  quantity,
+  description,
+  packed,
+  onDeletedItem,
+  id,
+  handleToggleItem,
+}) => {
   return (
     <li>
-      <input type="checkbox" />
+      <input
+        type="checkbox"
+        value={packed}
+        onChange={() => handleToggleItem(id)}
+      />
       <span style={packed ? { textDecoration: "line-through" } : {}}>
         {quantity} {description}
       </span>
-      <button>❌</button>
+      <button onClick={() => onDeletedItem(id)}>❌</button>
     </li>
   );
 };
