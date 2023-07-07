@@ -1,12 +1,9 @@
 import { useState } from "react";
 import { Logo, Form, PakingList, Stats } from "./components";
+import Swal from "sweetalert2";
 
 function App() {
   const [items, setItems] = useState([]);
-
-  const quantityItems = items.length;
-  const quantityPacked = items.filter((item) => item.packed).length;
-  const percentage = Math.round((quantityPacked / quantityItems) * 100);
 
   const handleAddItems = (item) => {
     setItems((items) => [...items, item]);
@@ -25,6 +22,30 @@ function App() {
       )
     );
   };
+
+  const handleClearList = () => {
+    if (!items.length) return;
+
+    Swal.fire({
+      title: "Are you sure you want to delete all items?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#e5771f",
+      cancelButtonColor: "#76c7ad",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setItems([]);
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your items have been deleted.",
+          icon: "success",
+          confirmButtonColor: "#e5771f",
+        });
+      }
+    });
+  };
+
   return (
     <div className="app">
       <Logo />
@@ -32,13 +53,10 @@ function App() {
       <PakingList
         items={items}
         onDeletedItem={handleDeleteItem}
-        handleToggleItem={handleToggleItem}
+        onToggleItem={handleToggleItem}
+        onClearList={handleClearList}
       />
-      <Stats
-        quantityItems={quantityItems}
-        quantityPacked={quantityPacked}
-        percentage={percentage}
-      />
+      <Stats items={items} />
     </div>
   );
 }

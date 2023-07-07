@@ -1,6 +1,16 @@
-import React from "react";
+export const Stats = ({ items }) => {
+  if (!items.length) {
+    return (
+      <footer className="stats">
+        <em>Start adding some items to your packing list</em>
+      </footer>
+    );
+  }
 
-export const Stats = ({ quantityItems, quantityPacked, percentage }) => {
+  const quantityItems = items.length;
+  const quantityPacked = items.filter((item) => item.packed).length;
+  const percentage = Math.round((quantityPacked / quantityItems) * 100);
+
   return (
     <footer className="stats">
       <em>
